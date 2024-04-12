@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: Ingestor
+  rabbitmq:
+    username: info
+    password: news
+    host: rabbitmq-server
+    port: 5672
+    cache:
+      channel:
+        #Number of channels to retain in the cache. When "check-timeout" > 0, max channels per connection.
+        size: 2
+        #Duration to wait to obtain a channel if the cache size has been reached. If 0, always create a new channel.
+        checkout-timeout: 10000
+  graphql:
+    graphiql:
+      enabled: true
+server.port: 8084
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+    instance:
+      preferIpAddress: true

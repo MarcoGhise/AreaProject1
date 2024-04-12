@@ -1,0 +1,29 @@
+version: '2'
+services:
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq-server'
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      - "15692:15692"
+    environment:
+#      - RABBITMQ_DEFAULT_USER=areaclienti
+#      - RABBITMQ_DEFAULT_PASS=58!3nQGD
+      - RABBITMQ_DEFAULT_USER=info
+      - RABBITMQ_DEFAULT_PASS=news
+  mongodb:
+    container_name: 'mongo_replica'
+    image: bitnami/mongodb:5.0
+    ports:
+      - "27017:27017"
+    environment:
+      MONGODB_REPLICA_SET_MODE: primary
+      ALLOW_EMPTY_PASSWORD: 'yes'   
+    volumes:
+     - ./MongoDb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+ # registry_area:
+ #   container_name: 'registry_area'
+ #   image: ambilight/eureka-server:1.0.0
+ #   ports:
+ #     - "8761:8761"

@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Result</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/information.css">
+</head>
+<body>
+<div id="container">
+    <h1>&bull; Insert Information &bull;</h1>
+    <div class="underline">
+    </div>
+
+    <form action="#" th:action="@{/insert}" th:object="${insert}" method="post" id="contact_form">
+        <div class="name">
+            <p th:text="'JSON: ' + ${result}"  style="white-space: pre"></p>
+        </div>
+    </form><!-- // End form -->
+    <div>
+        <a href="/">Back to Home</a>
+    </div>
+</div><!-- // End #container -->
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Submit Information</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/information.css">
+</head>
+<body>
+<div id="container">
+    <h1>&bull; Insert Information &bull;</h1>
+    <div class="underline">
+    </div>
+
+    <form action="#" th:action="@{/insert}" th:object="${insert}" method="post" id="contact_form">
+        <div class="name">
+            <label for="type"></label>
+            <input type="text" placeholder="Information type" th:field="*{type}" required>
+        </div>
+        <div class="message">
+            <label for="payload"></label>
+            <textarea th:field="*{payload}" placeholder="Information Message" cols="30" rows="5" required></textarea>
+        </div>
+        <div class="submit">
+            <input type="submit" value="Send Information" id="form_button" />
+        </div>
+    </form><!-- // End form -->
+    <div>
+        <a href="/">Back to Home</a>
+    </div>
+</div><!-- // End #container -->
+</body>
+</html>

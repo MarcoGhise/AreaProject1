@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Submit Information</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/information.css">
+</head>
+<body>
+<div id="container">
+    <h1>&bull; Find Information &bull;</h1>
+    <div class="underline">
+    </div>
+
+    <form action="#" th:action="@{/search}" th:object="${search}" method="post" id="contact_form">
+        <div class="name">
+            <label for="type"></label>
+            <input type="text" placeholder="Find information with the word..." th:field="*{word}" required>
+        </div>
+        <div class="submit">
+            <input type="submit" value="Find" id="form_button" />
+        </div>
+    </form><!-- // End form -->
+    <div>
+        <a href="/">Back to Home</a>
+    </div>
+</div><!-- // End #container -->
+</body>
+</html>
