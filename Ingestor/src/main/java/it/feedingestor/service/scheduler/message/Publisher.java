@@ -19,10 +19,7 @@ public class Publisher {
         /*
          * Send message
          */
-        rabbitTemplate.convertAndSend("notify-exchange", "notify", information, m -> {
-            m.getMessageProperties().getHeaders().put("origin", "cops");
-            return m;
-        });
+        rabbitTemplate.convertAndSend("notify-exchange", "notify", information);
 
         log.info("Sent message {}", information);
         return true;

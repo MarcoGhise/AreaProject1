@@ -27,7 +27,7 @@ public class FEController {
     }
 
     @PostMapping("/search")
-    public String searchSubmit(@ModelAttribute WordSearch wordSearch, Model model) throws JsonProcessingException {
+    public String searchSubmit(@ModelAttribute WordSearch wordSearch, Model model) {
         String information = fetchNews.getNews(wordSearch);
 
         model.addAttribute("result", information);
@@ -41,7 +41,7 @@ public class FEController {
     }
 
     @PostMapping("/insert")
-    public String greetingSubmit(@ModelAttribute DataInformation information, Model model) throws JsonProcessingException {
+    public String greetingSubmit(@ModelAttribute DataInformation information, Model model)  {
         String result = fetchNews.postNews(information);
 
         model.addAttribute("result", result);

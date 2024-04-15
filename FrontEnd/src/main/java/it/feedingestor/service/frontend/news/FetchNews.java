@@ -31,27 +31,34 @@ public class FetchNews {
         this.objectMapper = objectMapper;
     }
 
-    public String getNews(WordSearch wordSearch) throws JsonProcessingException {
+    public String getNews(WordSearch wordSearch) {
 
-        Map<String, String> uriVariables = new HashMap<>();
-        uriVariables.put("word", wordSearch.getWord());
+        try {
 
-        UriComponents encode = UriComponentsBuilder.fromUriString("http://localhost:8082/information")
-                .pathSegment("{word}")
-                .buildAndExpand(uriVariables)
-                .encode();
+            Map<String, String> uriVariables = new HashMap<>();
+            uriVariables.put("word", wordSearch.getWord());
 
-        URI uri = encode.toUri();
-        log.info("Url to call:{}", uri.toString());
+            UriComponents encode = UriComponentsBuilder.fromUriString("http://storage/information")
+                    .pathSegment("{word}")
+                    .buildAndExpand(uriVariables)
+                    .encode();
 
-        List<DataInformation> response = restTemplate.getForObject(uri, List.class);
+            URI uri = encode.toUri();
+            log.info("Url to call:{}", uri.toString());
 
-        log.info("Response:{}", objectMapper.writeValueAsString(response));
+            List<DataInformation> response = restTemplate.getForObject(uri, List.class);
 
-        String indented = objectMapper.writerWithDefaultPrettyPrinter()
-                .writeValueAsString(response);
+            log.info("Response:{}", objectMapper.writeValueAsString(response));
 
-        return indented;
+            String indented = objectMapper.writerWithDefaultPrettyPrinter()
+                    .writeValueAsString(response);
+
+            return indented;
+        }
+        catch (Exception e){
+            log.error("Error in reading information", e);
+            return e.getMessage();
+        }
 
     }
     public String postNews(DataInformation information) {
@@ -69,7 +76,7 @@ public class FetchNews {
 
             HttpEntity<String> entity = new HttpEntity<String>(bodyJson, headers);
 
-            UriComponentsBuilder builder = UriComponentsBuilder.fromUriString("http://localhost:8084/publish");
+            UriComponentsBuilder builder = UriComponentsBuilder.fromUriString("http://ingestor/publish");
 
             URI uri = builder.build(true).toUri();
             log.info("Url to call:{}", uri.toString());

@@ -14,10 +14,8 @@ public class BasicAuthWebSecurityConfiguration {
 
     @Value("${auth.user}")
     String username;
-
     @Value("${auth.password}")
     String password;
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authz) -> authz.antMatchers("*") //

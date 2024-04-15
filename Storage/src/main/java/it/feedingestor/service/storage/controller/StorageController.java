@@ -26,7 +26,6 @@ public class StorageController {
     public List<MongoInformation> getInformation(@PathVariable String word)
     {
         TextCriteria criteria = TextCriteria.forDefaultLanguage().matchingAny(word);
-        List<MongoInformation> infoRepo = repository.findAllBy(criteria);
-        return infoRepo;
+        return repository.findAllBy(criteria);
     }
 }

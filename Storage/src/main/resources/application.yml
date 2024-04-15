@@ -21,12 +21,12 @@ spring:
   data:
     mongodb:
       auto-index-creation: true
-      uri: mongodb://localhost:27017/test
+      uri: mongodb://mongodb:27017/test
 server.port: 8082
 
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://admin:welcome1@localhost:8761/eureka/
+      defaultZone: http://registry_area:8761/eureka/
     instance:
       preferIpAddress: true

@@ -15,7 +15,7 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://admin:welcome1@localhost:8761/eureka/
+      defaultZone: http://registry_area:8761/eureka/
     instance:
       preferIpAddress: true
 scheduler:

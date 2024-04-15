@@ -26,17 +26,23 @@ public class NewsFetcher {
         this.objectMapper = objectMapper;
     }
 
-    public BbcNews getNewsFromBbcHeadline() throws JsonProcessingException {
+    public BbcNews getNewsFromBbcHeadline() throws Exception {
+        try {
 
             UriComponentsBuilder builder = UriComponentsBuilder.fromUriString("http://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=9acc642023684f07b46fae89185513ce");
 
             URI uri = builder.build(true).toUri();
             log.info("Url to call:{}", uri.toString());
 
-            ResponseEntity<BbcNews> response = restTemplate.exchange(uri, HttpMethod.GET, null,  BbcNews.class);
+            ResponseEntity<BbcNews> response = restTemplate.exchange(uri, HttpMethod.GET, null, BbcNews.class);
 
             log.info("Response:{}", objectMapper.writeValueAsString(response.getBody()));
 
             return response.getBody();
+        }
+        catch(Exception e){
+            log.error("Error in getting news from Bbc", e);
+            throw new Exception(e);
+        }
     }
 }

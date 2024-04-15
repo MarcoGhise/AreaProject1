@@ -24,7 +24,7 @@ public class ImportNews {
 
     //@Scheduled(cron = "${scheduler.cron}")
     @Scheduled(fixedRate = 10000000)
-    public void importFromBbc() throws JsonProcessingException {
+    public void importFromBbc() throws Exception {
         /*
         Read data from Bbc website
          */

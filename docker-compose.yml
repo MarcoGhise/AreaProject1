@@ -1,29 +1,116 @@
 version: '2'
 services:
-  rabbitmq:
+  rabbitmq-server:
     image: rabbitmq:3-management-alpine
     container_name: 'rabbitmq-server'
+    mem_limit: 256M
     ports:
       - "5672:5672"
       - "15672:15672"
       - "15692:15692"
     environment:
-#      - RABBITMQ_DEFAULT_USER=areaclienti
-#      - RABBITMQ_DEFAULT_PASS=58!3nQGD
       - RABBITMQ_DEFAULT_USER=info
       - RABBITMQ_DEFAULT_PASS=news
   mongodb:
-    container_name: 'mongo_replica'
+    container_name: 'mongodb'
     image: bitnami/mongodb:5.0
+    mem_limit: 256m
     ports:
       - "27017:27017"
     environment:
       MONGODB_REPLICA_SET_MODE: primary
-      ALLOW_EMPTY_PASSWORD: 'yes'   
+      ALLOW_EMPTY_PASSWORD: 'yes'      
     volumes:
      - ./MongoDb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
- # registry_area:
- #   container_name: 'registry_area'
- #   image: ambilight/eureka-server:1.0.0
- #   ports:
- #     - "8761:8761"
+  registry_area:
+    container_name: 'registry_area'
+    image: ambilight/eureka-server:1.0.0
+    ports:
+      - "8761:8761"
+    environment:
+      JAVA_OPTS: -Xmx250m
+      
+  frontend-app:  
+    image: "area/frontend-app:1.0.0"
+    container_name: 'frontend-app'
+    mem_limit: 256M
+    build:
+      context: ./FrontEnd
+      dockerfile: Dockerfile
+    ports:
+      - '80:8080'
+    environment:
+      JAVA_OPTS: -Xmx256m
+    depends_on:
+      - registry_area
+      
+  ingestor-app:  
+    image: "area/ingestor-app:1.0.0"
+    container_name: 'ingestor-app'
+    mem_limit: 256M
+    build:
+      context: ./Ingestor
+      dockerfile: Dockerfile
+    ports:
+      - '8084:8084'
+    environment:
+      JAVA_OPTS: -Xmx256m    
+    depends_on:
+      - registry_area  
+      
+  storage-app:  
+    image: "area/storage-app:1.0.0"
+    container_name: 'storage-app'
+    mem_limit: 256M
+    build:
+      context: ./Storage
+      dockerfile: Dockerfile
+    ports:
+      - '8082:8082'
+    environment:
+      JAVA_OPTS: -Xmx256m 
+    depends_on:
+      - registry_area
+      
+  schedulerservice-app:  
+    image: "area/schedulerservice-app:1.0.0"
+    container_name: 'schedulerservice-app'
+    mem_limit: 256M
+    build:
+      context: ./SchedulerService
+      dockerfile: Dockerfile
+    environment:
+      JAVA_OPTS: -Xmx256m 
+    depends_on:
+      - registry_area      
+      
+  prometheus:
+    image: prom/prometheus:v2.7.2
+    container_name: 'prometheus'
+    ports:
+      - '9090:9090'
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - /prometheus:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.console.libraries=/usr/share/prometheus/console_libraries"
+      - "--web.console.templates=/usr/share/prometheus/consoles"
+      - "--storage.tsdb.retention.time=10d"
+
+  grafana:
+    image: grafana/grafana-enterprise:latest
+    container_name: 'grafana'    
+    environment:
+    - GF_SERVER_DOMAIN=monitor-be.iol.bko
+    - GF_RENDERING_CALLBACK_URL=http://grafana:3000/
+    - GF_LOG_FILTERS=rendering:debug
+    ports:
+      - '3000:3000'
+    volumes:
+    - ./monitoring/grafana/:/etc/grafana/       
+    env_file:
+    - ./monitoring/grafana/config.monitoring
+    depends_on:
+    - prometheus         
