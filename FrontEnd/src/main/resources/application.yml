@@ -8,6 +8,11 @@ eureka:
       defaultZone: http://registry_area:8761/eureka/
     instance:
       preferIpAddress: true
+management:
+  metrics.tags.application: ${application.title}
+  endpoints:
+    web.exposure.include: prometheus,info,health,metrics
+    prometheus.enabled: true  
 auth:
   user: admin
   password: '{bcrypt}$2a$10$4FtlQ0Ex4VeneIOztJ1lT.Oor2Pqk6xzgXdb2APcbZqbBAV1eh6aO'

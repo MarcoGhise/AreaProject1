@@ -1,15 +1,13 @@
 package it.feedingestor.service.frontend.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import it.feedingestor.service.frontend.entity.WordSearch;
 import it.feedingestor.service.frontend.news.FetchNews;
+import it.library.commondata.DataInformation;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import it.library.commondata.DataInformation;
 
 @Controller
 public class FEController {

@@ -3,7 +3,7 @@ package it.feedingestor.service.frontend.news;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-//import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import it.feedingestor.service.frontend.entity.WordSearch;
 import it.library.commondata.DataInformation;
 import org.springframework.http.*;
