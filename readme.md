@@ -4,7 +4,19 @@ An application built to insert unstructured data inside a NoSQL database and ret
 
 A scheduled task runs to ingest data from external resource.
 
-### Application Stack
+## Index
+
+1. [Architectural view](#Architecturalview)
+2. [Quick Start](#QuickStart)
+3. [Mongo](#mongo)
+4. [Eureka Registry](#EurekaRegistry)
+5. [Front End](#FrontEnd)
+6. [Ingestor](#Ingestor)
+7. [Storage](#Storage)
+8. [Scheduler](#Scheduler)
+9. [Metrics](#Metrics)
+
+## Application Stack
 
 - Spring Boot 2.7
 - Thymeleaf template
@@ -17,7 +29,7 @@ A scheduled task runs to ingest data from external resource.
 - EhCache
 - Micrometer
 
-### Architectural view
+## Architectural view
 
 ![Architecture Diagram](https://github.com/MarcoGhise/AreaProject1/blob/main/arch.jpg)
 
@@ -32,11 +44,48 @@ Start up the containers by running
 docker-compose up -d
 ```
 
-### Eureka Registry
+## Mongo
+A collection called "information" inside "test" database is created in Mongo Db during Docker container start up.
+
+Data structure is the follow:
+```
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "_id": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "payload": {
+      "type": "object"
+    },
+    "dtInsert": {
+      "type": "string"
+    },
+    "_class": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "_id",
+    "type",
+    "payload",
+    "dtInsert",
+    "_class"
+  ]
+}
+```
+
+Payload node contains whatever data inserted.
+
+## Eureka Registry
 Services register themselves into Discovery Registry in order to discovery each other without hard coding IP address and/or port.
 Also, Registry checks their health status and put service offline when is not available.
 
-### Front End
+## Front End
 Front end service using Spring Boot Framework (2.7) and Thymeleaf template to build a Http Web Application available on port 80. 
 
 The application is available through basic authentication (username: admin, password: password). 
@@ -44,7 +93,7 @@ The application is available through basic authentication (username: admin, pass
 The site is based on two page: In the "Insert" page, a user can add an information with specified a Kind.
 In the "Search" page, a user can look for any type of word from information ingested into NoSQL database.
 
-### Ingestor
+## Ingestor
 Ingestor service is not exposed on public port and get data from FrontEnd in order to transform it in a message.
 The message is sent to a RabbitMQ message broker.
 

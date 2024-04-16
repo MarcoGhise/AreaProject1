@@ -58,20 +58,6 @@ services:
     depends_on:
       - registry_area 
 
-  ingestor-app2:  
-    image: "area/ingestor-app:1.0.0"
-    container_name: 'ingestor-app2'
-    mem_limit: 256M
-    build:
-      context: ./Ingestor
-      dockerfile: Dockerfile
-    ports:
-      - '8085:8084'
-    environment:
-      JAVA_OPTS: -Xmx256m    
-    depends_on:
-      - registry_area      
-      
   storage-app:  
     image: "area/storage-app:1.0.0"
     container_name: 'storage-app'
