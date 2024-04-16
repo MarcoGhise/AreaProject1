@@ -31,7 +31,7 @@ A scheduled task runs to ingest data from external resource.
 
 ## Architectural view
 
-![Architecture Diagram](https://github.com/MarcoGhise/AreaProject1/blob/main/arch.jpg)
+![Architecture Diagram](https://github.com/MarcoGhise/AreaProject1/blob/main/img/arch.jpg)
 
 ## Quick Start
 Run maven root project (./pom.xml) with Jdk 17
@@ -91,7 +91,12 @@ Front end service using Spring Boot Framework (2.7) and Thymeleaf template to bu
 The application is available through basic authentication (username: admin, password: password). 
 
 The site is based on two page: In the "Insert" page, a user can add an information with specified a Kind.
+
+![Insert page](https://github.com/MarcoGhise/AreaProject1/blob/main/img/insert.jpg)
+
 In the "Search" page, a user can look for any type of word from information ingested into NoSQL database.
+
+![Search Result](https://github.com/MarcoGhise/AreaProject1/blob/main/img/search.jpg)
 
 ## Ingestor
 Ingestor service is not exposed on public port and get data from FrontEnd in order to transform it in a message.
