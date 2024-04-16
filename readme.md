@@ -19,7 +19,7 @@ A scheduled task runs to ingest data from external resource.
 
 ### Architectural view
 
-[Picture]
+![Architecture Diagram](https://github.com/MarcoGhise/AreaProject1/blob/main/arch.jpg)
 
 ## Quick Start
 Run maven root project (./pom.xml) with Jdk 17
