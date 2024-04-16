@@ -15,7 +15,7 @@
       <module>CommonData</module>
       <module>FrontEnd</module>
       <module>Ingestor</module>
-      <module>SchedulerService</module>
+      <module>Scheduler</module>
       <module>Storage</module>
     </modules>
 

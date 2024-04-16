@@ -56,7 +56,21 @@ services:
     environment:
       JAVA_OPTS: -Xmx256m    
     depends_on:
-      - registry_area  
+      - registry_area 
+
+  ingestor-app2:  
+    image: "area/ingestor-app:1.0.0"
+    container_name: 'ingestor-app2'
+    mem_limit: 256M
+    build:
+      context: ./Ingestor
+      dockerfile: Dockerfile
+    ports:
+      - '8085:8084'
+    environment:
+      JAVA_OPTS: -Xmx256m    
+    depends_on:
+      - registry_area      
       
   storage-app:  
     image: "area/storage-app:1.0.0"
@@ -72,12 +86,12 @@ services:
     depends_on:
       - registry_area
       
-  schedulerservice-app:  
-    image: "area/schedulerservice-app:1.0.0"
-    container_name: 'schedulerservice-app'
+  scheduler-app:  
+    image: "area/scheduler-app:1.0.0"
+    container_name: 'scheduler-app'
     mem_limit: 256M
     build:
-      context: ./SchedulerService
+      context: ./Scheduler
       dockerfile: Dockerfile
     environment:
       JAVA_OPTS: -Xmx256m 
