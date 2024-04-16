@@ -161,3 +161,49 @@ Grafana is available at endpoint http://localhost:3000 (user: admin, password: p
 ![FrontEnd Grafana](https://github.com/MarcoGhise/AreaProject1/blob/main/img/grafana.jpg)
 
 Data is scraped every 40 seconds.
+
+## High Availability
+It's possible to achieve HA with different choices:
+
+### Service duplication
+Inside docker-compose.yml, duplicating a service (e.g. Ingestor), we'll have 2 instances of the same service balaced by the registry.
+```
+ingestor-istance2-app:  
+    image: "area/ingestor-app:1.0.0"
+    container_name: 'ingestor-istance2-app'
+    mem_limit: 256M
+    build:
+        context: ./Ingestor
+        dockerfile: Dockerfile
+    ports:
+        - '8094:8084'
+    environment:
+        JAVA_OPTS: -Xmx256m    
+    depends_on:
+        - registry_area 
+```
+In this way, shutting down a service will not generate any failure in application.
+
+### Docker Swarm
+Having an orchestrator like Docker Swarm installed in local environment, it's possible to achieve HA by adding deploy 
+strategy into docker-compose.yml file.
+Example
+```
+ingestor-app:  
+    image: "area/ingestor-app:1.0.0"
+    container_name: 'ingestor-app'
+    mem_limit: 256M
+    deploy:
+      mode: replicated
+      replicas: 2
+    build:
+        context: ./Ingestor
+        dockerfile: Dockerfile
+    ports:
+        - '8084:8084'
+    environment:
+        JAVA_OPTS: -Xmx256m    
+    depends_on:
+        - registry_area 
+```
+In this way, ingestor-app is deployed with 2 instance.
