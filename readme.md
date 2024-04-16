@@ -89,7 +89,7 @@ Dashboard is available at http://localhost:15672 (username: info, password: news
 A single Queue "notify" is configured and joined at direct exchange binding called "notify-exchange".
 The queue is not persistable.
 
-![RabbitMQ dashboard](https://github.com/MarcoGhise/AreaProject1/blob/main/img/rabbitmq.jpg)
+![RabbitMQ dashboard](https://github.com/MarcoGhise/AreaProject1/blob/main/img/rabbitmq.JPG)
 
 ## Eureka Registry
 Services register themselves into Discovery Registry in order to discovery each other without hard coding IP address and/or port.
