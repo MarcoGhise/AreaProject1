@@ -92,11 +92,11 @@ The application is available through basic authentication (username: admin, pass
 
 The site is based on two page: In the "Insert" page, a user can add an information with specified a Kind.
 
-![Insert page](https://github.com/MarcoGhise/AreaProject1/blob/main/img/insert.jpg)
+![Insert page](https://github.com/MarcoGhise/AreaProject1/blob/main/img/insert.JPG)
 
 In the "Search" page, a user can look for any type of word from information ingested into NoSQL database.
 
-![Search Result](https://github.com/MarcoGhise/AreaProject1/blob/main/img/search.jpg)
+![Search Result](https://github.com/MarcoGhise/AreaProject1/blob/main/img/search.JPG)
 
 ## Ingestor
 Ingestor service is not exposed on public port and get data from FrontEnd in order to transform it in a message.
